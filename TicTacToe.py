@@ -28,22 +28,25 @@ def items():
 items()
 
 
-def winning_window(window,T):
-    root = window
+def winning_window(root,T):
     frame = Frame(root,padx=50,pady=50,bg='#66bfbf')
     frame.place(x=0,y=0)
     Label(frame,text=T, font=('arial', 20, 'normal'), width=10, bg='#66bfbf').grid(
         column=0, row=0, ipadx=20, ipady=50, columnspan=2)
-    Button(frame,text='Restart', command=lambda: [root.destroy(), twoPlayerWindow(
-    )], cursor='hand2', bg='Light Cyan', activebackground='#6f6f3f', activeforeground='White', border=0.5).grid(column=0, row=1)
-    Button(frame,text='Main Menu', command=lambda: [root.destroy(), starting_window(
-    )], cursor='hand2', bg='Light Cyan', activebackground='#6f6f3f', activeforeground='White', border=0.5).grid(column=1, row=1)
+    
+    Button(frame,text='Restart', command=lambda: [root.destroy(), twoPlayerWindow()],
+           cursor='hand2', bg='Light Cyan', activebackground='#6f6f3f',
+           activeforeground='White', border=0.5).grid(column=0, row=1)
+    Button(frame,text='Main Menu', command=lambda: [root.destroy(), starting_window()],
+           cursor='hand2', bg='Light Cyan', activebackground='#6f6f3f',
+           activeforeground='White', border=0.5).grid(column=1, row=1)
 
     root.mainloop()
 
 
 def twoPlayerWindow():
     root = Tk()
+    root.focus_force()
     root.minsize(width=300, height=300)
     root.maxsize(width=300, height=300)
     root.title('Play Game')
@@ -138,7 +141,7 @@ def twoPlayerWindow():
 
 
 def name_window():
-    def btn():
+    def btn(e=None):
         global name1, name2
         if p1.get() and p2.get():
             name1 = p1.get()
@@ -158,11 +161,13 @@ def name_window():
     Label(r, text='Player 1 Name: ',).grid(row=0, column=0)
     Label(r, text='Player 2 Name: ').grid(row=1, column=0)
     p1 = Entry(r,)
+    p1.focus_force()
     p2 = Entry(r,)
     p1.grid(row=0, column=1)
     p2.grid(row=1, column=1)
     Button(r, text='Ok', bg='#A2D5AB', border=.5, padx=10,
            pady=2, cursor='hand2', command=btn).place(x=100, y=50)
+    r.bind('<Return>',btn)
 
     r.mainloop()
 
@@ -196,6 +201,7 @@ def starting_window():
         a()
 
     root = Tk()
+    root.focus_force()
     root.minsize(width=300, height=300)
     root.maxsize(width=300, height=300)
     root.title('Tic-Tac-Toe')
@@ -219,3 +225,4 @@ def starting_window():
     root.mainloop()
 
 starting_window()
+quit()
